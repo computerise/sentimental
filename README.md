@@ -1,0 +1,2 @@
+# sentimental
+Use natural language processing (GPT-3 API?)  to perform sentiment analysis on securities. First, train the algorithm on financial and business language from a wide array of financial journalists and reports. Then, perform analysis on several large-cap stocks to correlate historic share prices with reports from a exhaustive list of apply the trained algorithm to list of trusted financial reporters. 
