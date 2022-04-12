@@ -12,6 +12,6 @@
 
 # 5) Later, reassess the source lists based on actual performance of the stocks by promoting candidate sources that outperformed trusted sources.
 
-# 6) Profit.
+# 6) Profit?
 
 # 7) Repeat steps 4-7.
