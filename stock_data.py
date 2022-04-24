@@ -1,5 +1,7 @@
 import csv
 
+# CSV will be ported to postgresql
+
 
 class Company:
     """Company stock ticker, name and sector."""
@@ -31,14 +33,13 @@ class CompanyDataset:
     def get_companies(self):
         return self.companies
 
-    def import_stock_data(self, path, delimiter='\t'):
+    def import_stock_data(self, path: str, delimiter='\t'):
         """Import a csv file and take the first 3 elements of each row as ticker, name, and sector.
         Return a dictionary of the company tickers and names."""
         companies: dict = {}
         with open(path) as file:
             data = csv.reader(file, delimiter=delimiter)
             for row in data:
-                # TRY company = Company(row)
                 company = Company(row[0], row[1], row[2])
                 companies.update({company.ticker: company})
         return companies
