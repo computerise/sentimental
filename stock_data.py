@@ -8,15 +8,7 @@ class Company:
 
     def __init__(self, ticker: str, name: str, sector: str):
         self.ticker, self.name, self.sector = ticker, name, sector
-        self.set_company_names(self.ticker, self.name)
-
-    def set_company_names(self, ticker: str, name: str):
-        """Set the company ticker and name as a key value pair."""
         self.company_names = {ticker: name}
-
-    def get_company_names(self, ticker: str):
-        """Get the company ticker and name as a key value pair."""
-        return self.company_names
 
 
 class CompanyDataset:
@@ -25,13 +17,7 @@ class CompanyDataset:
     def __init__(self, name: str, path: str = None):
         self.name, self.path = name, path
         if self.path != None:
-            self.set_companies(self.import_stock_data(self.path))
-
-    def set_companies(self, companies):
-        self.companies = companies
-
-    def get_companies(self):
-        return self.companies
+            self.companies = self.import_stock_data(self.path)
 
     def import_stock_data(self, path: str, delimiter='\t'):
         """Import a csv file and take the first 3 elements of each row as ticker, name, and sector.

@@ -6,6 +6,7 @@ import text_scraper
 
 SECURE_URL = 'https://www.wsj.com/news/markets/stocks'
 INSECURE_URL = 'http://www.google.com'
+FAKE_URL = 'https://wwafdfsdw.google.asdsdf'
 SECURE_SOURCE = text_scraper.Source(SECURE_URL)
 INSECURE_SOURCE = text_scraper.Source(INSECURE_URL)
 
@@ -28,10 +29,8 @@ class TestSource(unittest.TestCase):
             INSECURE_SOURCE.webpage.is_https_url(INSECURE_URL))
 
     def test_fake_url(self):
-        fake_url = 'https://wwafdfsdw.google.asdsdf'
-        #fake_source = text_scraper.Source(fake_url)
         with self.assertRaises(URLError) as context:
-            text_scraper.Source(fake_url)
+            text_scraper.Source(FAKE_URL)
         self.assertTrue('Failed to retrieve the request webpage at' in str(context.exception))
             
         

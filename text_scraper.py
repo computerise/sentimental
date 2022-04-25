@@ -23,7 +23,7 @@ class Webpage:
             request = Request(
                 url, headers={'User-Agent': 'Mozilla/5.0'})
             page = urlopen(request).read()
-            log.info("Retrieved requested webpage at {url}")
+            log.info(f"Retrieved requested webpage at {url}")
             return page
         except Exception as url_err:
             raise type(url_err)(f"Failed to retrieve the request webpage at {url}")
@@ -48,6 +48,3 @@ class Source:
     def __init__(self, url: str):
         """Initialise Source."""
         self.webpage: Webpage = Webpage(url)
-
-if __name__ == '__main__':
-    Source('https://wwafdfsdw.google.asdsdf')

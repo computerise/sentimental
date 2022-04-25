@@ -12,7 +12,7 @@ class ExtensionHandler:
     def remove_file_extension(path: str):
         """Removes the top-level extension from a file if the file has an extension."""
         if '.' not in path:
-            raise ValueError("Specified file does not have a file extension.")
+            raise ValueError("Specified file does not have a file extension")
         return path.split('.')[0]
 
     def add_file_extension(path: str, new_extension: str):
