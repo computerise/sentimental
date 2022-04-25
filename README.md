@@ -15,3 +15,5 @@
 # 6) Profit?
 
 # 7) Repeat steps 4-7.
+
+# NOTE: Initially, program will simply web-scrape for analysts ratings from certain sources.
