@@ -1,4 +1,6 @@
+from aifc import Error
 import unittest
+from urllib.error import URLError
 
 import text_scraper
 
@@ -26,9 +28,12 @@ class TestSource(unittest.TestCase):
             INSECURE_SOURCE.webpage.is_https_url(INSECURE_URL))
 
     def test_fake_url(self):
-        fake_url = 'https://'
-        fake_source = text_scraper.Source(fake_url)
-        with self.assertRaises(ConnectionError) as context:
-            fake_source.webpage.retrieve_page(fake_url)
-        self.assertTrue("Failed to retrieve requested webpage." in str(context.exception))
-
+        fake_url = 'https://wwafdfsdw.google.asdsdf'
+        #fake_source = text_scraper.Source(fake_url)
+        with self.assertRaises(URLError) as context:
+            text_scraper.Source(fake_url)
+        self.assertTrue('Failed to retrieve the request webpage at' in str(context.exception))
+            
+        
+if __name__ == '__main__':
+   unittest.main()

@@ -1,3 +1,4 @@
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 from logger import Logger
@@ -22,10 +23,10 @@ class Webpage:
             request = Request(
                 url, headers={'User-Agent': 'Mozilla/5.0'})
             page = urlopen(request).read()
-            log.info("Retrieved request web page")
+            log.info("Retrieved requested webpage at {url}")
             return page
-        except Exception as ex:
-            raise ConnectionError(f"{ex}: Failed to retrieve requested webpage.")
+        except Exception as url_err:
+            raise type(url_err)(f"Failed to retrieve the request webpage at {url}")
 
 
     def segment_url(self, url):
@@ -36,7 +37,7 @@ class Webpage:
     def is_https_url(self, url: str):
         """Checks if URL conforms to secure https."""
         if url[0:6] != 'https:':
-            log.warning(f"{url} is not secure; did not attempt connection.")
+            log.warning(f"{url} is not secure; did not attempt connection")
             return False
         return True
 
@@ -47,3 +48,6 @@ class Source:
     def __init__(self, url: str):
         """Initialise Source."""
         self.webpage: Webpage = Webpage(url)
+
+if __name__ == '__main__':
+    Source('https://wwafdfsdw.google.asdsdf')
