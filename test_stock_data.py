@@ -22,5 +22,6 @@ class TestExchange(unittest.TestCase):
         self.assertEqual(self.company.name, self.name)
         self.assertEqual(self.company.sector, self.sector)
 
+
 if __name__ == '__main__':
-   unittest.main()
+    unittest.main()

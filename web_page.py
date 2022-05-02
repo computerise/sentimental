@@ -23,9 +23,11 @@ class Webpage:
             page = urlopen(request).read()
             self.log.info(f"Retrieved requested webpage at {url}")
             return page
-        except Exception as url_err:
-            raise type(url_err)(f"Failed to retrieve the request webpage at {url}")
+        except URLError as url_err:
+            raise type(url_err)(
+                f"Failed to retrieve the request webpage at {url}")
 
+############################ REPLACE WITH urllib.parse ###########################################
 
     def segment_url(self, url):
         """Splits the URL on forward slashes."""
@@ -43,16 +45,11 @@ class Webpage:
         if 'https:' == prefix:
             self.log.info(f"Established secure connection to {url}")
             is_https = True
-        elif 'http:' == prefix: 
-            self.log.warning(f"{url} http is not secure; did not attempt connection. Prefix URL with https://")
+        elif 'http:' == prefix:
+            self.log.warning(
+                f"{url} http is not secure; did not attempt connection. Prefix URL with https://")
         else:
             self.log.warning(f"{url} is not HTTP. Prefix URL with https://")
         return is_https
 
-
-class Source:
-    """Source website object."""
-
-    def __init__(self, url: str):
-        """Initialise Source."""
-        self.webpage: Webpage = Webpage(url)
+###################################################################################################
