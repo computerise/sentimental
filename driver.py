@@ -8,8 +8,6 @@ from selenium.webdriver.common.keys import Keys
 
 
 from logger import Logger
-from stock_data import CompanyDataset
-from web_source import WebSource
 
 WEBDRIVER_PATH = 'C:\Program Files (x86)\chromedriver.exe'
 SEARCH_ENGINE_PATH = 'https://www.google.com'
@@ -17,6 +15,8 @@ log = Logger.custom_logger(__file__, 'DEBUG')
 
 
 class ChromeDriver(webdriver.Chrome):
+    """Base driver class for Google Chrome."""
+
     def __init__(self, webdriver_path=WEBDRIVER_PATH, search_engine_path=SEARCH_ENGINE_PATH):
         super().__init__(webdriver_path)
         self.get(search_engine_path)
@@ -60,15 +60,18 @@ class ChromeDriver(webdriver.Chrome):
         return interactable_check
 
     def accept_cookies(self, by=By.ID, cookies_identifier='L2AGLb'):
+        """Accept cookies on the webpage. Default accepts cookies for Google."""
         self.find_element(by, cookies_identifier).click()
 
     @elementexists
     def get_element(self, by=By.NAME, element='q'):
+        """Finds element in current page."""
         search_bar = self.find_element(by, element)
         return search_bar
 
     @elementinteractable
     def enter_keystrokes(self, search: WebElement, query: str, all_keystrokes=None):
+        """Enters keystrokes into a given interactable element. By default, clear previous input, then add new input and enter it."""
         if all_keystrokes is None:
             all_keystrokes = [(Keys.CONTROL, 'a'), (query, Keys.RETURN)]
         for keystrokes in all_keystrokes:
@@ -76,14 +79,18 @@ class ChromeDriver(webdriver.Chrome):
 
 
 class SearchDriver(ChromeDriver):
+    """Specific ChromeDriver for searching."""
+
     def __init__(self):
         super().__init__()
 
     def new_search(self, query: str):
+        """Get an interactable element on the page and enter a new search query."""
         search = self.get_element()
         self.enter_keystrokes(search, query)
 
     def get_element_text(self, timeout=0.5, element_name='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME):
+        """Get the raw text from a specified element containing text."""
         try:
             element = WebDriverWait(self, timeout).until(
                 EC.presence_of_element_located((by, element_name)))
@@ -95,5 +102,6 @@ class SearchDriver(ChromeDriver):
             return False
 
     def google_text_search(self, query: str):
+        """Search Google and return matching raw text element."""
         self.new_search(query)
         return self.get_element_text()

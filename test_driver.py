@@ -10,7 +10,6 @@ class TestDriver(unittest.TestCase):
     def test_new_search(self):
         driver = SearchDriver()
         text = driver.google_text_search(QUERY)
-        print(text)
         self.assertEqual(type(text), str)
 
 

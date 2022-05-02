@@ -19,30 +19,36 @@ class WebScraper:
         else:
             self.driver = driver
 
-    def import_dataset(self, dataset_type, name, file):
+    def import_dataset(self, dataset_type: CompanyDataset, name: str, file: str):
+        """Return a dataset imported from the specified csv file."""
         return dataset_type(name, file)
 
     def import_source(self, name):
+        """Return a Websource object."""
         return WebSource(name)
 
     def scrape_n(self, n: int, query='price target', wait=1):
+        """Scrape n number of results."""
         company_queries = list(self.company_dataset.companies.values())
         number_of_company_queries = len(company_queries)
         if n > number_of_company_queries:
             n = number_of_company_queries
         scraped_data = {}
         for company in company_queries[:n]:
-            new_scrape = self.scrape(company.name, self.source.name, query)
-            self.add_data(scraped_data, company.name, new_scrape)
-            time.sleep(wait)
+            company_scrape = self.scrape(company.name, self.source.name, query)
+            if company_scrape:
+                self.add_data(scraped_data, company.name, company_scrape)
+                time.sleep(wait)
         return scraped_data
 
     def scrape(self, company_name, source_name, query):
+        """Input query and return scraped text."""
         full_query = f'{company_name} {query} {source_name}'
         log.debug(f'Scraped results for "{full_query}"')
         return self.driver.google_text_search(full_query)
 
     def format_text_element(self, name: str, text_element: str, currency='$'):
+        """Format the raw text element into a more usable data type."""
         formatted_text = {}
         text_list = re.split('\n| ', text_element)
         for i, string in enumerate(text_list):
@@ -56,7 +62,8 @@ class WebScraper:
                     return False
         return {name: formatted_text}
 
-    def add_data(self, data: dict, name, new_entry):
+    def add_data(self, data: dict, name: str, new_entry: str):
+        """Add some new entry to an exisiting data dictionary."""
         if new_entry:
             formatted_data = self.format_text_element(name, new_entry)
             if formatted_data:
