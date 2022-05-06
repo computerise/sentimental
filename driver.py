@@ -75,7 +75,8 @@ class ChromeDriver(webdriver.Chrome):
         if all_keystrokes is None:
             all_keystrokes = [(Keys.CONTROL, 'a'), (query, Keys.RETURN)]
         for keystrokes in all_keystrokes:
-            search.send_keys(keystrokes)
+            if search:
+                search.send_keys(keystrokes)
 
 
 class SearchDriver(ChromeDriver):
@@ -89,13 +90,12 @@ class SearchDriver(ChromeDriver):
         search = self.get_element()
         self.enter_keystrokes(search, query)
 
-    def get_element_text(self, timeout=0.5, element_name='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME):
+    def get_element(self, timeout=0.5, element_name='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME):
         """Get the raw text from a specified element containing text."""
         try:
             element = WebDriverWait(self, timeout).until(
                 EC.presence_of_element_located((by, element_name)))
-            print(bool(element.text))
-            return element.text
+            return element
         except TimeoutException as ex:
             log.warning(
                 f'{type(ex).__name__}: Waited {timeout}s for {element_name} but it was not located')
@@ -104,4 +104,6 @@ class SearchDriver(ChromeDriver):
     def google_text_search(self, query: str):
         """Search Google and return matching raw text element."""
         self.new_search(query)
-        return self.get_element_text()
+        element = self.get_element()
+        if element:
+            return self.get_element().text
