@@ -6,13 +6,13 @@ from stock_data import CompanyDataset
 from web_source import WebSource
 from driver import ChromeDriver, SearchDriver
 
-log = Logger.custom_logger(__file__, 'INFO')
+log = Logger.custom_logger(__file__, 'WARNING')
 
 
 class WebScraper:
-    def __init__(self, company_dataset_name: str, company_dataset_file: str, source_name: str, driver=None):
-        self.company_dataset = self.import_dataset(
-            CompanyDataset, company_dataset_name, company_dataset_file)
+    def __init__(self, dataset_name: str, dataset_file: str, source_name: str, driver=None):
+        self.dataset = self.import_dataset(
+            CompanyDataset, dataset_name, dataset_file)
         self.source = self.import_source(source_name)
         if driver is None:
             self.driver = ChromeDriver()
@@ -27,18 +27,22 @@ class WebScraper:
         """Return a Websource object."""
         return WebSource(name)
 
+    def initialise_google(self, query='a'):
+        self.driver.new_search(query)
+
     def scrape_n(self, n: int, query='price target', wait=1):
-        """Scrape n number of results."""
-        company_queries = list(self.company_dataset.companies.values())
+        """Scrape n number of results. If n is greater than the number of elements in the dataset"""
+        self.initialise_google()
+        company_queries = list(self.dataset.entries.values())
         number_of_company_queries = len(company_queries)
         if n > number_of_company_queries:
             n = number_of_company_queries
         scraped_data = {}
         for company in company_queries[:n]:
-            company_scrape = self.scrape(company.name, self.source.name, query)
-            if company_scrape:
-                self.add_data(scraped_data, company.name, company_scrape)
-                time.sleep(wait)
+            data_text = self.scrape(company.name, self.source.name, query)
+            if data_text:
+                self.add_data(scraped_data, company.name, data_text)
+            time.sleep(wait)
         return scraped_data
 
     def scrape(self, company_name, source_name, query):
@@ -47,7 +51,7 @@ class WebScraper:
         log.debug(f'Scraped results for "{full_query}"')
         return self.driver.google_text_search(full_query)
 
-    def format_text_element(self, name: str, text_element: str, currency='$'):
+    def format_table_element(self, name: str, text_element: str, currency='$'):
         """Format the raw text element into a more usable data type."""
         formatted_text = {}
         text_list = re.split('\n| ', text_element)
@@ -59,13 +63,14 @@ class WebScraper:
                 except ValueError as ex:
                     log.warning(
                         f'{type(ex).__name__}: Could not format text element')
-                    return False
+                    formatted_text = string  # formatted string has no update method
+                print(formatted_text)
         return {name: formatted_text}
 
     def add_data(self, data: dict, name: str, new_entry: str):
         """Add some new entry to an exisiting data dictionary."""
         if new_entry:
-            formatted_data = self.format_text_element(name, new_entry)
+            formatted_data = self.format_table_element(name, new_entry)
             if formatted_data:
                 data.update(formatted_data)
                 log.info(formatted_data)

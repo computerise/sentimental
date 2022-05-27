@@ -85,25 +85,26 @@ class SearchDriver(ChromeDriver):
     def __init__(self):
         super().__init__()
 
-    def new_search(self, query: str):
+    def new_search(self, query: str, identifier='q', by=By.NAME):
         """Get an interactable element on the page and enter a new search query."""
-        search = self.get_element()
+        search = self.get_element(identifier, by)
         self.enter_keystrokes(search, query)
 
-    def get_element(self, timeout=0.5, element_name='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME):
+    def get_element(self, identifier, by=By.CLASS_NAME, timeout=0.5):
         """Get the raw text from a specified element containing text."""
+        element = WebElement
         try:
             element = WebDriverWait(self, timeout).until(
-                EC.presence_of_element_located((by, element_name)))
-            return element
+                EC.presence_of_element_located((by, identifier)))
         except TimeoutException as ex:
             log.warning(
-                f'{type(ex).__name__}: Waited {timeout}s for {element_name} but it was not located')
-            return False
+                f'{type(ex).__name__}: Waited {timeout}s for {identifier} but it was not located')
+            element.text = 'NO-DATA'
+        return element  # this fails the test case
 
-    def google_text_search(self, query: str):
+    def google_text_search(self, query: str, identifier='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME) -> str:
         """Search Google and return matching raw text element."""
         self.new_search(query)
-        element = self.get_element()
-        if element:
-            return self.get_element().text
+        element = self.get_element(identifier, by)
+        # this returns non since get_element return false
+        return element.text
