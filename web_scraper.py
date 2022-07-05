@@ -6,7 +6,7 @@ from stock_data import CompanyDataset
 from web_source import WebSource
 from driver import ChromeDriver, SearchDriver
 
-log = Logger.custom_logger(__file__, 'WARNING')
+log = Logger.custom_logger(__file__, 'INFO')
 
 
 class WebScraper:
@@ -32,7 +32,7 @@ class WebScraper:
 
     def scrape_n(self, n: int, query='price target', wait=1):
         """Scrape n number of results. If n is greater than the number of elements in the dataset"""
-        self.initialise_google()
+        # self.initialise_google()
         company_queries = list(self.dataset.entries.values())
         number_of_company_queries = len(company_queries)
         if n > number_of_company_queries:
@@ -40,8 +40,7 @@ class WebScraper:
         scraped_data = {}
         for company in company_queries[:n]:
             data_text = self.scrape(company.name, self.source.name, query)
-            if data_text:
-                self.add_data(scraped_data, company.name, data_text)
+            self.add_data(scraped_data, company.name, data_text)
             time.sleep(wait)
         return scraped_data
 

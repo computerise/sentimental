@@ -42,18 +42,6 @@ class ChromeDriver(webdriver.Chrome):
                 search = fn(*keys)
             except ElementNotInteractableException as ex:
                 log.critical(
-                    f'{type(ex).__name__}: Element is not interactable')
-                search = False
-            return search
-        return interactable_check
-
-    def elementinteractable(fn):
-        """Decorator function to check that a target element is not interactable"""
-        def interactable_check(*keys):
-            try:
-                search = fn(*keys)
-            except ElementNotInteractableException as ex:
-                log.critical(
                     f'{type(ex).__name}: Element is not interactable')
                 search = False
             return search
@@ -92,19 +80,21 @@ class SearchDriver(ChromeDriver):
 
     def get_element(self, identifier, by=By.CLASS_NAME, timeout=0.5):
         """Get the raw text from a specified element containing text."""
-        element = WebElement
         try:
             element = WebDriverWait(self, timeout).until(
                 EC.presence_of_element_located((by, identifier)))
         except TimeoutException as ex:
+            print(ex)
             log.warning(
                 f'{type(ex).__name__}: Waited {timeout}s for {identifier} but it was not located')
-            element.text = 'NO-DATA'
-        return element  # this fails the test case
+            return False
+        return element
 
     def google_text_search(self, query: str, identifier='webanswers-webanswers_table__webanswers-table', by=By.CLASS_NAME) -> str:
         """Search Google and return matching raw text element."""
         self.new_search(query)
         element = self.get_element(identifier, by)
-        # this returns non since get_element return false
-        return element.text
+        if element:
+            return element.text
+        else:
+            return False
