@@ -27,5 +27,6 @@ class TestLogger(unittest.TestCase):
     def output_path():
         return ExtensionHandler.change_file_extension(INPUT_PATH, '.log')
 
+
 if __name__ == '__main__':
-   unittest.main()
+    unittest.main()
