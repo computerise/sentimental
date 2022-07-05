@@ -1,6 +1,6 @@
-import unittest
-
 from driver import ChromeDriver, SearchDriver
+import unittest
+1
 
 QUERY = '3M analyst ratings MarketWatch'
 

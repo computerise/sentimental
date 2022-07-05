@@ -64,7 +64,6 @@ class WebScraper:
                     log.warning(
                         f'{type(ex).__name__}: Could not format text element')
                     formatted_text = string  # formatted string has no update method
-                print(formatted_text)
         return {name: formatted_text}
 
     def add_data(self, data: dict, name: str, new_entry: str):
