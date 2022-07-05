@@ -7,7 +7,7 @@ class Logger:
     """Logger configuration."""
 
     def custom_logger(parent_file: str,
-                      log_level=logging.DEBUG,
+                      log_level='DEBUG',
                       log_format=(
                           '%(asctime)s:%(levelname)s:%(message)s'),
                       log_path=None):
