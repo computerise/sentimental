@@ -7,7 +7,7 @@ from selenium.common.exceptions import TimeoutException, ElementNotInteractableE
 from selenium.webdriver.common.keys import Keys
 
 
-from logger import Logger
+from sentimental.logger import Logger
 
 WEBDRIVER_PATH = 'C:\Program Files (x86)\chromedriver.exe'
 SEARCH_ENGINE_PATH = 'https://www.google.com'

@@ -1,6 +1,6 @@
 import logging
 
-from extension_handler import ExtensionHandler
+from sentimental.extension_handler import ExtensionHandler
 
 
 class Logger:

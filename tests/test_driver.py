@@ -1,6 +1,6 @@
-from driver import ChromeDriver, SearchDriver
 import unittest
-1
+
+from sentimental.driver import SearchDriver
 
 QUERY = '3M analyst ratings MarketWatch'
 
@@ -8,8 +8,8 @@ QUERY = '3M analyst ratings MarketWatch'
 class TestDriver(unittest.TestCase):
 
     def test_new_search(self):
-        driver = SearchDriver()
-        text = driver.google_text_search(QUERY)
+        test_driver = SearchDriver()
+        text = test_driver.google_text_search(QUERY)
         self.assertEqual(type(text), str)
 
 

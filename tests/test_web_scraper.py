@@ -1,7 +1,7 @@
 import unittest
 
-from web_scraper import WebScraper
-from driver import SearchDriver
+from sentimental.web_scraper import WebScraper
+from sentimental.driver import SearchDriver
 
 SAMPLE_DATA = {'3M': {'High': 194.0, 'Median': 151.0,
                       'Low': 118.0, 'Average': 154.61}}

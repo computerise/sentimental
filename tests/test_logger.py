@@ -2,8 +2,8 @@ import logging
 import unittest
 import datetime
 
-from extension_handler import ExtensionHandler
-import logger
+from sentimental.extension_handler import ExtensionHandler
+import sentimental.logger as logger
 
 
 INPUT_PATH = __file__

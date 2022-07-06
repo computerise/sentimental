@@ -1,4 +1,4 @@
-from logger import Logger
+from sentimental.logger import Logger
 
 
 class WebSource:

@@ -1,7 +1,7 @@
 import unittest
 from urllib.error import URLError
 
-import web_source
+from sentimental import web_source
 
 TEST_NAME = 'TEST_NAME'
 
