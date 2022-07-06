@@ -1,5 +1,5 @@
 class ExtensionHandler:
-    """Utility to handle files."""
+    """Utility to handle file extensions."""
 
     def change_file_extension(path: str, new_extension: str):
         """Change the file extension of a file at the specified path."""

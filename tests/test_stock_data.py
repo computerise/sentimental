@@ -1,6 +1,6 @@
 import unittest
 
-import stock_data
+import sentimental.stock_data as stock_data
 
 DATA_NAME = 's&p500'
 DATA_PATH = 's&p500.txt'

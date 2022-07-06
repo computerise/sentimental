@@ -1,6 +1,6 @@
 import unittest
 
-from extension_handler import ExtensionHandler
+from sentimental.extension_handler import ExtensionHandler
 
 
 INPUT_PATH = '/this/is/an/example/file/path.txt'

@@ -1,10 +1,10 @@
 import re
 import time
 
-from logger import Logger
-from stock_data import CompanyDataset
-from web_source import WebSource
-from driver import ChromeDriver, SearchDriver
+from sentimental.logger import Logger
+from sentimental.stock_data import CompanyDataset
+from sentimental.web_source import WebSource
+from sentimental.driver import ChromeDriver, SearchDriver
 
 log = Logger.custom_logger(__file__, 'INFO')
 
@@ -76,6 +76,7 @@ class WebScraper:
 
 
 if __name__ == '__main__':
-    scraper = WebScraper('S&P500', 's&p500.txt', 'MarketWatch', SearchDriver())
+    scraper = WebScraper('S&P500', 'sentimental/s&p500.txt',
+                         'MarketWatch', SearchDriver())
     data = scraper.scrape_n(10, wait=0)
     log.info(data)
