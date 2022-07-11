@@ -2,44 +2,38 @@ import re
 import time
 
 from sentimental.logger import Logger
-from sentimental.stock_data import CompanyDataset
-from sentimental.web_source import WebSource
+from sentimental.stock_data import CompanyDataset, Dataset
 from sentimental.driver import ChromeDriver, SearchDriver
 
 log = Logger.custom_logger(__file__, 'INFO')
 
 
 class WebScraper:
-    def __init__(self, dataset_name: str, dataset_file: str, source_name: str, driver=None):
+    def __init__(self, dataset_name: str, source_name: str, driver=None):
         self.dataset = self.import_dataset(
-            CompanyDataset, dataset_name, dataset_file)
-        self.source = self.import_source(source_name)
+            CompanyDataset, dataset_name)
+        self.source_name = source_name
         if driver is None:
             self.driver = ChromeDriver()
         else:
             self.driver = driver
 
-    def import_dataset(self, dataset_type: CompanyDataset, name: str, file: str):
+    def import_dataset_from_file(self, dataset_type: CompanyDataset, name: str, file: str):
         """Return a dataset imported from the specified csv file."""
-        return dataset_type(name, file)
+        return dataset_type(name)
 
-    def import_source(self, name):
-        """Return a Websource object."""
-        return WebSource(name)
-
-    def initialise_google(self, query='a'):
-        self.driver.new_search(query)
+    def import_dataset(self, dataset_type=CompanyDataset, name='sp500'):
+        return dataset_type(name)
 
     def scrape_n(self, n: int, query='price target', wait=1):
         """Scrape n number of results. If n is greater than the number of elements in the dataset"""
-        # self.initialise_google()
         company_queries = list(self.dataset.entries.values())
         number_of_company_queries = len(company_queries)
         if n > number_of_company_queries:
             n = number_of_company_queries
         scraped_data = {}
         for company in company_queries[:n]:
-            data_text = self.scrape(company.name, self.source.name, query)
+            data_text = self.scrape(company.name, self.source_name, query)
             self.add_data(scraped_data, company.name, data_text)
             time.sleep(wait)
         return scraped_data
@@ -48,7 +42,7 @@ class WebScraper:
         """Input query and return scraped text."""
         full_query = f'{company_name} {query} {source_name}'
         log.debug(f'Scraped results for "{full_query}"')
-        return self.driver.google_text_search(full_query)
+        return self.driver.google_text_search(query=full_query)
 
     def format_table_element(self, name: str, text_element: str, currency='$'):
         """Format the raw text element into a more usable data type."""
@@ -75,8 +69,6 @@ class WebScraper:
         return data
 
 
-if __name__ == '__main__':
-    scraper = WebScraper('S&P500', 'sentimental/s&p500.txt',
-                         'MarketWatch', SearchDriver())
-    data = scraper.scrape_n(10, wait=0)
-    log.info(data)
+class GoogleScraper(WebScraper):
+    def __init__(self, data_name, source_name):
+        super().__init__(data_name, source_name, driver=SearchDriver())

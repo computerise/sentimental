@@ -1,4 +1,5 @@
 import csv
+from sentimental.database_connector import Database
 
 # CSV will be ported to postgresql
 
@@ -23,10 +24,9 @@ class Company(DataObject):
 class Dataset:
     """A set of generic data."""
 
-    def __init__(self, dataset_name: str, path: str = None):
-        self.dataset_name, self.path = dataset_name, path
-        if self.path != None:
-            self.entries = self.import_data(self.path, Company)
+    def __init__(self, dataset_name: str):
+        self.dataset_name = dataset_name
+        self.entries = self.format_data(dataset_name)
 
     def import_data(self, path: str, data_object: DataObject, delimiter='\t'):
         """Import a CSV file and take the elements of each row as a data entry.
@@ -39,16 +39,26 @@ class Dataset:
                 imported_data.update({entry.id: entry})
         return imported_data
 
+    def format_data(self, table_name, data_object=Company):
+        """Format database output to currently used format. Improve this with SQL queries."""
+        self.database = Database()
+        formatted_data: dict = {}
+        data = self.database.get_all(table_name)
+        for item in data:
+            formatted_data.update(
+                {item.get('ticker'): data_object(item.values())})
+        return formatted_data
+
 
 class CompanyDataset(Dataset):
     """Placeholder Company data set."""
 
-    def __init__(self, name: str, path: str):
-        super().__init__(name, path)
+    def __init__(self, name: str):
+        super().__init__(name)
 
 
 class Exchange(CompanyDataset):
     """Placeholder Stock Exchange data set."""
 
-    def __init__(self, name: str, path: str = None):
-        super().__init__(name, path)
+    def __init__(self, name: str):
+        super().__init__(name)
