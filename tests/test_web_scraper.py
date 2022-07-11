@@ -3,8 +3,9 @@ import unittest
 from sentimental.web_scraper import WebScraper
 from sentimental.driver import SearchDriver
 
-SAMPLE_DATA = {'3M': {'High': 194.0, 'Median': 151.0,
-                      'Low': 118.0, 'Average': 154.61}}
+SAMPLE_DATA = {'Advance Auto Parts': {'High': 259.0, 'Median': 220.0, 'Low': 142.0, 'Average': 222.21, 'Price': 183.99},
+               'Apple': {'High': 219.94, 'Median': 185.0, 'Low': 130.0, 'Average': 184.79, 'Price': 147.04},
+               'AbbVie': {'High': 200.0, 'Median': 160.0, 'Low': 135.0, 'Average': 163.81, 'Price': 152.0}}
 
 
 def remove_price(data):
@@ -23,9 +24,9 @@ class TestWebScraper(unittest.TestCase):
 
     def test_scrape(self):
         sample_data = remove_price(SAMPLE_DATA)
-        scraper = WebScraper('S&P500', 's&p500.txt',
+        scraper = WebScraper('sp500',
                              'MarketWatch', SearchDriver())
-        data = remove_price(scraper.scrape_n(1, wait=0))
+        data = remove_price(scraper.scrape_n(5, wait=0))
         self.maxDiff = 5000
         self.assertEqual(sample_data, data)
 
