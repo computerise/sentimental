@@ -1,19 +1,21 @@
 # sentimental
 
-# Using natural language processing to perform sentiment analysis on securities.
+## Summary
 
-# 1) Train the algorithm on financial and business language from a wide array of financial journalists and reports.
+The qualitative analysis component of a Value Investing approach. Apply natural language models to perform sentiment analysis on publicly-traded securities.
 
-# 2) Using the trained algorithm, score the sentiment towards several large-cap companies in each relevant report in the dataset.
+## Method
 
-# 3) Sources with the highest correlation between sentiment score and share price over time become **trusted sources**; the remainder become **candidate sources**.
+1) Train the algorithm on financial and business language from a wide array of financial journalists and reports, or use an open source Large Language Model (LLM) like LLaMA2.
 
-# 4) Apply the algorithm to recent reports from all sources and the to obtain recent sentiment towards the company stocks.
+2) Using the model, score the sentiment in historical reports and articles towards various [quantitatively-filtered](https://github.com/computerise/stonks/) companies and compare the sentiment to historical stock performance.
 
-# 5) Later, reassess the source lists based on actual performance of the stocks by promoting candidate sources that outperformed trusted sources.
+3) Sources with the highest correlation between sentiment score and share price over time become **trusted sources**; the remainder become **candidate sources**.
 
-# 6) Profit?
+4) Apply the algorithm to recent articles and reports from all sources and to obtain current sentiment towards the company stocks.
 
-# 7) Repeat steps 4-7.
+5) Iteratively reassess the source lists based on actual performance of the stocks by promoting candidate sources that outperformed trusted sources.
 
-# NOTE: Initially, program will simply web-scrape for analysts ratings from certain sources.
+6) Profit?
+
+7) Repeat steps 4-7.
