@@ -6,7 +6,7 @@ The qualitative analysis component of a [Value Investing](https://www.investoped
 
 ## Method
 
-1) Train the algorithm on financial and business language from a wide array of financial journalists and reports, or use an open source [Large Language Model (LLM)](https://www.nvidia.com/en-us/glossary/data-science/large-language-models/) like [LLaMA2](https://github.com/facebookresearch/llama).
+1) Employ an open source [Large Language Model (LLM)](https://www.nvidia.com/en-us/glossary/data-science/large-language-models/) like [LLaMA2](https://github.com/facebookresearch/llama) to review articles from business and financial reporters.
 
 2) Using the model, score the sentiment in historical reports and articles towards various [quantitatively-filtered](https://github.com/computerise/stonks/) companies and compare the sentiment to historical stock performance.
 
