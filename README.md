@@ -2,11 +2,11 @@
 
 ## Summary
 
-The qualitative analysis component of a Value Investing approach. Apply natural language models to perform sentiment analysis on publicly-traded securities.
+The qualitative analysis component of a [Value Investing](https://www.investopedia.com/terms/v/valueinvesting.asp) approach. Apply natural language models to perform sentiment analysis on publicly-traded securities.
 
 ## Method
 
-1) Train the algorithm on financial and business language from a wide array of financial journalists and reports, or use an open source Large Language Model (LLM) like LLaMA2.
+1) Train the algorithm on financial and business language from a wide array of financial journalists and reports, or use an open source [Large Language Model (LLM)](https://www.nvidia.com/en-us/glossary/data-science/large-language-models/) like [LLaMA2](https://github.com/facebookresearch/llama).
 
 2) Using the model, score the sentiment in historical reports and articles towards various [quantitatively-filtered](https://github.com/computerise/stonks/) companies and compare the sentiment to historical stock performance.
 
@@ -16,6 +16,8 @@ The qualitative analysis component of a Value Investing approach. Apply natural 
 
 5) Iteratively reassess the source lists based on actual performance of the stocks by promoting candidate sources that outperformed trusted sources.
 
-6) Profit?
+6) The sentiment scores, in conjunction with a quantitative evaluation of each company are used to assess the likelihood of stocks being over- or under-valued by the market.
+   
+8) Profit?
 
-7) Repeat steps 4-7.
+9) Repeat steps 4-9.
