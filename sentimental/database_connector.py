@@ -4,16 +4,16 @@ import mysql.connector
 class Connection(mysql.connector.MySQLConnection):
     """Connection to MySQL server."""
 
-    def connect(_host="localhost", _user='root', password=None):
-        if password:
-            connection = mysql.connector.connect(host=_host,
-                                                 user=_user,
+    def connect(host="localhost", user=None, password=None):
+        if password and username:
+            connection = mysql.connector.connect(host=host,
+                                                 user=user,
                                                  passwd=password,
                                                  database="sentimental")
             return connection
         else:
             print(
-                'Must include MySQL Database password in database_connector.Connection.connect() function.')
+                'Must include MySQL Database username and password in database_connector.Connection.connect() method.')
             return False
 
 
@@ -28,9 +28,3 @@ class Database:
         cursor = self.connection.cursor(dictionary=dictionary)
         cursor.execute(f"SELECT {column} FROM {table_name}")
         return cursor
-
-
-if __name__ == '__main__':
-    database = Database()
-    data = database.get_all(table_name='sp500')
-    [print(item) for item in data]
