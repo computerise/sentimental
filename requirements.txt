@@ -1,5 +1,3 @@
 selenium
-logging
-re
-time
-unittest
+mysql-connector-python
+pytest
