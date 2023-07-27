@@ -10,7 +10,6 @@ elementexists
 elementinteractable
 entrypoint
 env
-ExtensionHandler
 GoogleScraper
 interactable
 Iteratively
