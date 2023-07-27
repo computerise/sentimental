@@ -11,17 +11,14 @@ class DataObject:
 
     def __init__(self, id: str) -> None:
         """Initialise DataObject."""
-        self.id: str = id
+        self.id = id
 
 
 class Company(DataObject):
     """Company stock ticker, name and sector."""
 
-    def __init__(self, raw_data: list) -> None:
+    def __init__(self, raw_data: list[str]) -> None:
         """Initialise Company."""
-        self.ticker: str
-        self.name: str
-        self.sector: str
         self.ticker, self.name, self.sector = raw_data
         super().__init__(self.ticker)
 

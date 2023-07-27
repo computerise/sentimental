@@ -62,7 +62,7 @@ class LinuxChromeDriver(webdriver.Chrome):
 
     @elementinteractable
     def accept_cookies(self, by: str = By.ID, cookies_identifier: str = "L2AGLb") -> WebElement:
-        """Accept cookies on the webpage by cookies element identifier - defaults to Google."""
+        """Accept cookies on the web page by cookies element identifier - defaults to Google."""
         self.find_element(by, cookies_identifier).click()
 
     @elementexists
