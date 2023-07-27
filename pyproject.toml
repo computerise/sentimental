@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sentimental"
+version = "0.0.0a0"
+description = "Scrape stock market information for sentiment analysis"
+authors = ["Thomas Ashley <tom.daniel.ashley@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+selenium = "^4.10.0"
+mysql-connector-python = "^8.1.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+flake8 = "^6.0.0"
+pytest = "^7.4.0"
+coverage = "^7.2.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

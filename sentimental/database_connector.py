@@ -1,26 +1,28 @@
-import mysql.connector
+"""Database model."""
 
-
-class Connection(mysql.connector.MySQLConnection):
-    """Connection to MySQL server."""
-
-    def connect(host="localhost", username=None, password=None):
-        if password and username:
-            connection = mysql.connector.connect(host=host, user=username, passwd=password, database="sentimental")
-            return connection
-        else:
-            print("Must include MySQL Database username and password in database_connector.Connection.connect() method.")
-            return False
+from mysql.connector import connect
+from mysql.connector.connection import MySQLCursor
 
 
 class Database:
-    """Base database object."""
+    """Generic Database object."""
 
-    def __init__(self, name="sentimental"):
+    def __init__(self, name: str, host: str):
+        """Initialise Database."""
         self.name = name
-        self.connection = Connection.connect()
+        self.host = host
 
-    def get_all(self, table_name, column="*", dictionary=True):
+
+class MySQLDatabase(Database):
+    """MySQLDatabase object."""
+
+    def __init__(self, name: str, host: str, username: str, password: str) -> None:
+        """Initialise MySQLDatabase."""
+        super().__init__(name, host)
+        self.connection = connect(host=host, user=username, passwd=password, database=name)
+
+    def get_all(self, table_name: str, column: str = "*", dictionary: bool = True) -> MySQLCursor:
+        """Get all entries from the specified column in a specified table."""
         cursor = self.connection.cursor(dictionary=dictionary)
         cursor.execute(f"SELECT {column} FROM {table_name}")
         return cursor

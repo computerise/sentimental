@@ -1,18 +1,19 @@
 import unittest
 
-import sentimental.stock_data as stock_data
+from sentimental.stock_data import Company, CSVDataset
 
-EXCHANGE_NAME = "sp500"
+FILE_PATH = "data/sp500.csv"
 STOCK_TICKER = "AAPL"
 STOCK_NAME = "Apple"
 STOCK_SECTOR = "Information Technology"
 
 
-class TestExchange(unittest.TestCase):
-    def setUp(self, exchange=EXCHANGE_NAME, ticker=STOCK_TICKER, name=STOCK_NAME, sector=STOCK_SECTOR):
-        self.dataset = stock_data.Exchange(exchange)
+class TestDataset(unittest.TestCase):
+    def setUp(self, path=FILE_PATH, ticker=STOCK_TICKER, name=STOCK_NAME, sector=STOCK_SECTOR):
+        with open(path) as csv_file:
+            self.dataset = CSVDataset(Company, csv_file)
         self.ticker, self.name, self.sector = ticker, name, sector
-        self.company = self.dataset.entries.get(ticker)
+        self.company = self.dataset.AAPL
 
     def test_import_data(self):
         self.assertEqual(self.company.ticker, self.ticker)
