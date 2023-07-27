@@ -1,5 +1,6 @@
 """Extension handler utility."""
 
+
 class ExtensionHandler:
     """Utility to handle file extensions."""
 
