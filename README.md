@@ -86,13 +86,19 @@ The user input file must be a JSON file specified in `settings.toml` as `input_f
 
 ## Usage
 
+### Windows Usage
+
 Launch the application on Windows by double-clicking on `LAUNCH_WINDOWS.bat`. If Windows raises the warning `Windows protected your PC`, select `More info` then `Run anyway`.
 
 Launch the application on Linux by executing:
 
+### Linux Usage
+
 ```bash
 ./LAUNCH_LINUX.sh
 ```
+
+## Development
 
 To manually execute the application from a CLI, first activate a poetry virtual environment by executing:
 
@@ -112,7 +118,7 @@ The poetry shell session is exited by executing:
 deactivate
 ```
 
-Note that `stonks` can be executed without entering a poetry shell session by prefixing all commands (where `<command>` is any command stated in `Usage` or `Test`) with:
+Note that `sentimental` can be executed without entering a poetry shell session by prefixing all commands (where `<command>` is any command stated in `Usage` or `Test`) with:
 
 ```shell
 poetry run <command>

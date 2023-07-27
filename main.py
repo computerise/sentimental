@@ -4,7 +4,10 @@
 
 from sentimental.web_scraper import GoogleScraper
 
-if __name__ == "__main__":
+def main() -> None:
     scraper = GoogleScraper("sp500", "MarketWatch")
     data = scraper.scrape_n(10, wait=0)
     print(data)
+
+if __name__ == "__main__":
+    main()
