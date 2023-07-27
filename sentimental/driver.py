@@ -12,10 +12,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, NoSuchElementException
 
-from sentimental.logger import Logger
-
-log = Logger.custom_logger(__file__, "DEBUG")
-
 
 class LinuxChromeDriver(webdriver.Chrome):
     """Base driver class for Google Chrome."""
@@ -40,7 +36,7 @@ class LinuxChromeDriver(webdriver.Chrome):
             try:
                 search = fn(*args)
             except NoSuchElementException as ex:
-                log.critical(f"{type(ex).__name__}: Element {args[1]} was not found")
+                print(f"{type(ex).__name__}: Element {args[1]} was not found")
                 raise NoSuchElementException
             return search
 
@@ -54,7 +50,7 @@ class LinuxChromeDriver(webdriver.Chrome):
             try:
                 search = fn(*keys)
             except ElementNotInteractableException as ex:
-                log.critical(f"{type(ex).__name}: Element is not interactable")
+                print(f"{type(ex).__name}: Element is not interactable")
                 raise ElementNotInteractableException
             return search
 
@@ -102,7 +98,7 @@ class SearchDriver(LinuxChromeDriver):
             element = WebDriverWait(self, timeout).until(EC.presence_of_element_located((by, identifier)))
         except TimeoutException as ex:
             print(ex)
-            log.warning(f"{type(ex).__name__}: Waited {timeout}s for {identifier} but it was not located")
+            print(f"{type(ex).__name__}: Waited {timeout}s for {identifier} but it was not located")
             return False
         return element
 

@@ -3,10 +3,7 @@
 import re
 import time
 
-from sentimental.logger import Logger
 from sentimental.driver import SearchDriver
-
-log = Logger.custom_logger(__file__, "INFO")
 
 
 class WebScraper:
@@ -33,7 +30,7 @@ class WebScraper:
     def scrape(self, company_name: str, source_name: str, query: str) -> str | bool:
         """Scrape text for the specified query."""
         full_query = f"{company_name} {query} {source_name}"
-        log.debug(f'Scraped results for "{full_query}"')
+        print(f'Scraped results for "{full_query}"')
         return self.driver.google_text_search(query=full_query)
 
     def format_table_element(self, name: str, text_element: str, currency: str = "$") -> dict[str, str]:
@@ -45,7 +42,7 @@ class WebScraper:
                 try:
                     formatted_text.update({text_list[i - 1]: float(string.replace(currency, ""))})
                 except ValueError as ex:
-                    log.warning(f"{type(ex).__name__}: Could not format text element")
+                    print(f"{type(ex).__name__}: Could not format text element")
                     formatted_text = string  # formatted string has no update method
         return {name: formatted_text}
 
@@ -55,7 +52,7 @@ class WebScraper:
             formatted_data = self.format_table_element(name, new_entry)
             if formatted_data:
                 data.update(formatted_data)
-                log.info(formatted_data)
+                print(formatted_data)
         return data
 
 

@@ -10,6 +10,7 @@ QUERY = "3M analyst ratings MarketWatch"
 @unittest.skip
 class TestDriver(unittest.TestCase):
     """Test Driver implementations."""
+
     def test_new_search(self) -> None:
         """Test new search with SearchDriver."""
         test_driver = SearchDriver()
