@@ -1,3 +1,5 @@
+"""Test web scraping."""
+
 import unittest
 
 from sentimental.web_scraper import WebScraper
@@ -10,7 +12,8 @@ SAMPLE_DATA = {
 }
 
 
-def remove_price(data):
+def remove_price(data: dict[str, str]) -> dict[str, str]:
+    """Removes the price from table data."""
     output_data = {}
     for company in data.values():
         try:
@@ -24,7 +27,10 @@ def remove_price(data):
 
 @unittest.skip
 class TestWebScraper(unittest.TestCase):
-    def test_scrape(self):
+    """Test WebScraper."""
+
+    def test_scrape(self) -> None:
+        """Test scraping data against sample data."""
         sample_data = remove_price(SAMPLE_DATA)
         scraper = WebScraper("sp500", "MarketWatch", SearchDriver())
         data = remove_price(scraper.scrape_n(5, wait=0))
