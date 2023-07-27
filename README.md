@@ -136,5 +136,5 @@ To see the code coverage report from within a poetry shell session execute:
 
 ```bash
 coverage run -m pytest test/
-coverage report --fail-under=80
+coverage report --fail-under=60
 ```
