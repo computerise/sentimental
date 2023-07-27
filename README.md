@@ -80,10 +80,6 @@ To manually install the application from a Command Line Interface (CLI) on Windo
 poetry install
 ```
 
-## Configuration
-
-The user input file must be a JSON file specified in `settings.toml` as `input_file`. By default `input_file` is `input.json`. All other application specific settings are specified in `settings.toml`. All necessary assumptions used for calculations are specified in `assumptions.toml`.
-
 ## Usage
 
 ### Windows Usage
