@@ -25,7 +25,7 @@ Instructions on how to set up and install python3.
 
 #### Python Installation on Windows
 
-Download and install the python3.11 [here](https://www.python.org/downloads/). Then add the parent directory of `python.exe` to the [System Environment Variables `Path` field](<https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)>). Where `<username>` is the name of the Windows user account, the default path for `python3.exe` is:
+Download and install python3.11 [here](https://www.python.org/downloads/). Then add the parent directory of `python.exe` to the [System Environment Variables `Path` field](<https://learn.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee537574(v=office.14)>). Where `<username>` is the name of the Windows user account, the default path for `python3.exe` is:
 
 ```text
 C:\Users\<username>\AppData\Local\Programs\Python\Python311\
