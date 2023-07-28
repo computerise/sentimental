@@ -1,5 +1,26 @@
 # sentimental
 
+## Table of Contents
+
+- [sentimental](#sentimental)
+  - [Table of Contents](#table-of-contents)
+  - [Summary](#summary)
+  - [Method](#method)
+  - [Dependency Installation](#dependency-installation)
+    - [Python Installation](#python-installation)
+      - [Python Installation on Windows](#python-installation-on-windows)
+      - [Python Installation on Debian-Based Linux Distributions](#python-installation-on-debian-based-linux-distributions)
+    - [Poetry Installation](#poetry-installation)
+      - [Poetry Installation on Windows](#poetry-installation-on-windows)
+      - [Poetry Installation on Linux](#poetry-installation-on-linux)
+  - [Application Installation](#application-installation)
+    - [Dependencies](#dependencies)
+  - [Usage](#usage)
+    - [Windows Usage](#windows-usage)
+    - [Linux Usage](#linux-usage)
+  - [Development](#development)
+  - [Test](#test)
+
 ## Summary
 
 The qualitative analysis component of a [Value Investing](https://www.investopedia.com/terms/v/valueinvesting.asp) approach. Apply natural language models to perform sentiment analysis on publicly-traded securities.
@@ -72,17 +93,13 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ### Dependencies
 
-When using the launcher the application and dependencies are automatically installed.
+When using the launcher as prescribed in [Usage](#usage) the application and python dependencies are automatically installed.
 
 To manually install the application from a Command Line Interface (CLI) on Windows or Linux, execute:
 
 ```shell
 poetry install
 ```
-
-## Configuration
-
-The user input file must be a JSON file specified in `settings.toml` as `input_file`. By default `input_file` is `input.json`. All other application specific settings are specified in `settings.toml`. All necessary assumptions used for calculations are specified in `assumptions.toml`.
 
 ## Usage
 
